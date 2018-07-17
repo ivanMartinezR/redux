@@ -41,13 +41,24 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
 
-const $container=document.getElementById("playList");
-const playList=store.getState();
-playList.forEach((item)=>{
+function render(){
+	const $container=document.getElementById("playList");
+    const playList=store.getState();
+    $container.innerHTML='';
+    playList.forEach((item)=>{
 	const template=document.createElement('p');
 	template.textContent=item.title;
 	$container.appendChild(template);
 })
+}
+
+render();
+
+function handleChange(){
+	render();
+}
+
+store.subscribe(handleChange);
 
 
 console.log(store.getState());
